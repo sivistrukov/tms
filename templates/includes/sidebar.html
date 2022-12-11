@@ -1,0 +1,15 @@
+{% load static %}
+<div class="sidebar" id="id_sidebar">
+    <div class="header-box pt-3 px-3 pb-4">
+        <img src="{% static 'img/login-logo.png' %}" class="img-fluid">
+    </div>
+
+    <div class="d-grid gap-3 px-3">
+        <a href="" class="btn btn-primary">Задания на перевозку</a>
+        <a href="" class="btn btn-primary">Рейсы</a>
+        <a href="" class="btn btn-primary">Чат</a>
+        <a href="" class="btn btn-primary">Контрагенты</a>
+        <hr>
+        <a href="{% url 'logout' %}" class="btn btn-primary">Выход</a>
+    </div>
+</div>
