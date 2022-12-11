@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block header %}Контрагенты{% endblock %}
+{% block header %}Контрагент #{{ object.id }}{% endblock %}
 {% block content %}
     <form method="post">
         {% csrf_token %}
