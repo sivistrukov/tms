@@ -26,6 +26,7 @@ INSTALLED_APPS = [
 
     'apps.accounts.apps.AccountsConfig',
     'apps.counterparties.apps.CounterpartiesConfig',
+    'apps.assignments.apps.AssignmentsConfig',
 ]
 
 MIDDLEWARE = [
