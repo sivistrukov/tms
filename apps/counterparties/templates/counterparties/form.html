@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block header %}Контрагенты{% endblock %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label class="form-label" for="id_organization_name">Наименование организации:</label>
+            <input class="form-control" type="text" name="organization_name" maxlength="100" required=""
+                   id="id_organization_name" value="{{ object.organization_name }}">
+        </p>
+
+
+        <p>
+            <label class="form-label" for="id_representative">Представитель:</label>
+            <input class="form-control" type="text" name="representative" maxlength="100" required=""
+                   id="id_representative" value="{{ object.representative }}">
+        </p>
+
+        <p>
+            <label class="form-label" for="id_phone_number">Контактный номер:</label>
+            <input class="form-control" type="text" name="phone_number" maxlength="12" required="" id="id_phone_number"
+                   value="{{ object.phone_number }}">
+        </p>
+
+        <p>
+            <label class="form-label" for="id_type">Вид организации:</label>
+            {{ form.type }}
+        </p>
+
+        <input type="submit" class="btn btn-primary" value="Сохранить">
+        <a href="{% url 'counterparties:list' %}" class="btn btn-primary">Назад</a>
+        {% if object %}
+            <a href="{% url 'counterparties:delete' object.id %}" class="btn"
+               style="background: #dc3545 !important; color: white">Удалить</a>
+        {% endif %}
+    </form>
+{% endblock %}

@@ -5,5 +5,7 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.accounts.urls')),
-    # path('', RedirectView.as_view(pattern_name='requests')),
+    path('counterparties/', include('apps.counterparties.urls',
+                                    namespace='counterparties')),
+    path('', RedirectView.as_view(pattern_name='counterparties:list')),
 ]

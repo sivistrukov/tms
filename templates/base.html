@@ -15,17 +15,10 @@
         <div class="header px-4 py-2">
             <h2>{% block header %} {% endblock %}</h2>
         </div>
-        <form action="{% block form-action %}{% endblock %}" method="post" class="main-form">
-            {% csrf_token %}
-            <div class="action-menu mt-4 mb-4">
-                {% block action-menu %}
-                {% endblock %}
-            </div>
-            <div class="main-block p-3">
-                {% block content %}
-                {% endblock %}
-            </div>
-        </form>
+        <div class="content-block my-3 p-4">
+            {% block content %}
+            {% endblock %}
+        </div>
     </div>
 </div>
 

@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'apps.accounts.apps.AccountsConfig',
+    'apps.counterparties.apps.CounterpartiesConfig',
 ]
 
 MIDDLEWARE = [
@@ -112,6 +113,6 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = ''
+LOGIN_REDIRECT_URL = 'counterparties:list'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login'
