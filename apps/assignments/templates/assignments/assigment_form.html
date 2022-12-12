@@ -1,10 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block header %}
+    {% if object %}Задание на перевозку  #{{ object.id }}{% else %}Новый задание{% endif %}
+{% endblock %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
 
-</body>
-</html>
+        <p>
+            <label class="form-label" for="id_loading_address">Адрес загрузки:</label>
+            <input class="form-control" type="text" name="loading_address" maxlength="100" required=""
+                   id="id_loading_address" value="{{ object.loading_address }}">
+        </p>
+        <p>
+            <label class="form-label" for="id_unloading_address">Адрес выгрузки:</label>
+            <input class="form-control" type="text" name="unloading_address" maxlength="100" required=""
+                   id="id_unloading_address" value="{{ object.unloading_address }}">
+        </p>
+
+        <p>
+            <label class="form-label" for="id_customers">Заказчик:</label>
+            <select class="form-select" name="customers" id="id_customers">
+                {% for customer in customers %}
+                    <option value="{{ customer.organization_name }}"
+                            {% if object.customers == customer.organization_name %}
+                            selected="" {% endif %}>{{ customer.organization_name }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        {% if object %}
+            <p>
+                <label class="form-label" for="id_status">Статус:</label>
+                <select class="form-select" name="status" id="id_status">
+                    {% for status in STATUSES %}
+                        <option value="{{ status.value }}" {% if object.status == status.value %}
+                                selected="" {% endif %}>{{ status.value }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+        {% endif %}
+        <p>
+            <label class="form-label" for="id_cost">Стоимость перевозки:</label>
+            <input class="form-control" type="number" name="cost" value="{{ object.cost }}" step="0.01" required=""
+                   id="id_cost">
+        </p>
+        <p>
+            <label class="form-label" for="id_representative">Представитель:</label>
+            <input class="form-control" type="text" name="representative" maxlength="100" required=""
+                   id="id_representative" value="{{ object.representative }}">
+        </p>
+        <p>
+            <label class="form-label" for="id_phone_number">Контактный номер:</label>
+            <input class="form-control" type="text" name="phone_number" maxlength="100" required=""
+                   id="id_phone_number" value="{{ object.phone_number }}">
+        </p>
+
+        <input type="submit" class="btn btn-primary" value="Сохранить">
+        <a href="{% url 'assignments:list' %}" class="btn btn-primary">Назад</a>
+        {% if object %}
+            <a href="{% url 'counterparties:delete' object.id %}" class="btn"
+               style="background: #dc3545 !important; color: white">Удалить</a>
+        {% endif %}
+    </form>
+{% endblock %}

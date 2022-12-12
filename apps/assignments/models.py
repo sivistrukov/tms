@@ -10,7 +10,8 @@ class Assignment(models.Model):
 
     loading_address = models.CharField(max_length=150)
     unloading_address = models.CharField(max_length=150)
-    status = models.CharField(max_length=50, choices=Status.choices)
+    status = models.CharField(max_length=50, choices=Status.choices,
+                              default=Status.AWAITING_PAYMENT)
     cost = models.DecimalField(max_digits=10, decimal_places=2)
     customers = models.ForeignKey(Counterparty, related_name='assignments',
                                   on_delete=models.CASCADE)

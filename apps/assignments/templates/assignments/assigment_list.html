@@ -1,10 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'base.html' %}
+{% block header %}Задания на перевозку{% endblock %}
+{% block content %}
+    <div class="action-menu mt-">
+        <a href="{% url 'assignments:create-assignment' %}" class="btn btn-primary">Добавить задание</a>
+    </div>
+    <hr>
+    <div class="table-wrapper">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Заказчик</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Представитель</th>
+                <th scope="col">Контактный номер</th>
+                <th scope="col">Дата</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for obj in object_list %}
+                <tr>
+                    <th scope="row">{{ obj.id }}</th>
+                    <td>{{ obj.customers }}</td>
+                    <td>{{ obj.status }}</td>
+                    <td>{{ obj.representative }}</td>
+                    <td>{{ obj.phone_number }}</td>
+                    <td>{{ obj.updated }}</td>
+                    <td><a href="{% url 'assignments:update-assignment' obj.id %}" class="link-info"
+                           style="color: #0a58ca">Детали</a></td>
+                    <td><a href="{% url 'assignments:delete-assignment' obj.id %}" class="link-danger"
+                           style="color: #dc3545">Удалить</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
