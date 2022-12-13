@@ -26,3 +26,11 @@ class PayloadForm(forms.ModelForm):
         model = models.Payload
         fields = '__all__'
         exclude = ['assignment']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control'
+            }),
+            'count': forms.NumberInput(attrs={
+                'class': 'form-control'
+            })
+        }

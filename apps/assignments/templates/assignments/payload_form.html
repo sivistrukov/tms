@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block header %}{% if object %}Груз  #{{ object.id }}{% else %}Новый груз{% endif %}{% endblock %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
 
-</body>
-</html>
+        <p>
+            <label class="form-label" for="id_name">Наименование груза:</label>
+            {{ form.name }}
+        </p>
+        <p>
+            <label class="form-label" for="id_loading_address">Количество:</label>
+            {{ form.count }}
+        </p>
+
+        <input type="submit" class="btn btn-primary" value="Сохранить">
+        <a href="{% url 'assignments:update-assignment' assignment_id %}" class="btn btn-primary">назад</a>
+        {% if payload %}
+            <a href="{% url 'assignments:delete-payload' assignment_id payload.id %}" class="btn"
+               style="background: #dc3545 !important; color: white">Удалить</a>
+        {% endif %}
+    </form>
+{% endblock %}

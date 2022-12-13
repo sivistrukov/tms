@@ -1,52 +1,92 @@
 {% extends 'base.html' %}
 {% block header %}
-    {% if object %}Задание на перевозку  #{{ object.id }}{% else %}Новый задание{% endif %}
+    {% if object %}Задание на перевозку #{{ object.id }}{% else %}Новый задание{% endif %}
 {% endblock %}
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-
-        <p>
-            <label class="form-label" for="id_loading_address">Адрес загрузки:</label>
-            <input class="form-control" type="text" name="loading_address" maxlength="100" required=""
-                   id="id_loading_address" value="{{ object.loading_address }}">
-        </p>
-        <p>
-            <label class="form-label" for="id_unloading_address">Адрес выгрузки:</label>
-            <input class="form-control" type="text" name="unloading_address" maxlength="100" required=""
-                   id="id_unloading_address" value="{{ object.unloading_address }}">
-        </p>
-
-        <p>
-            <label class="form-label" for="id_customers">Заказчик:</label>
-            {{ form.customers }}
-        </p>
-        {% if object %}
+    <div style="overflow-y: scroll; height: 100%">
+        <form method="post">
+            {% csrf_token %}
             <p>
-                <label class="form-label" for="id_status">Статус:</label>
-                {{ form.status }}
+                <label class="form-label" for="id_loading_address">Адрес загрузки:</label>
+                <input class="form-control" type="text" name="loading_address" maxlength="100" required=""
+                       id="id_loading_address" value="{{ object.loading_address }}">
             </p>
-        {% endif %}
-        <p>
-            <label class="form-label" for="id_cost">Стоимость перевозки:</label>
-            {{ form.cost }}
-        </p>
-        <p>
-            <label class="form-label" for="id_representative">Представитель:</label>
-            <input class="form-control" type="text" name="representative" maxlength="100" required=""
-                   id="id_representative" value="{{ object.representative }}">
-        </p>
-        <p>
-            <label class="form-label" for="id_phone_number">Контактный номер:</label>
-            <input class="form-control" type="text" name="phone_number" maxlength="100" required=""
-                   id="id_phone_number" value="{{ object.phone_number }}">
-        </p>
+            <p>
+                <label class="form-label" for="id_unloading_address">Адрес выгрузки:</label>
+                <input class="form-control" type="text" name="unloading_address" maxlength="100" required=""
+                       id="id_unloading_address" value="{{ object.unloading_address }}">
+            </p>
 
-        <input type="submit" class="btn btn-primary" value="Сохранить">
-        <a href="{% url 'assignments:list' %}" class="btn btn-primary">Назад</a>
-        {% if object %}
-            <a href="{% url 'counterparties:delete' object.id %}" class="btn"
-               style="background: #dc3545 !important; color: white">Удалить</a>
-        {% endif %}
-    </form>
+            <p>
+                <label class="form-label" for="id_customers">Заказчик:</label>
+                {{ form.customers }}
+            </p>
+            {% if object %}
+                <p>
+                    <label class="form-label" for="id_status">Статус:</label>
+                    {{ form.status }}
+                </p>
+            {% else %}
+                <p hidden="hidden">
+                    <label class="form-label" for="id_status">Статус:</label>
+                    {{ form.status }}
+                </p>
+
+            {% endif %}
+            <p>
+                <label class="form-label" for="id_cost">Стоимость перевозки:</label>
+                {{ form.cost }}
+            </p>
+            <p>
+                <label class="form-label" for="id_representative">Представитель:</label>
+                <input class="form-control" type="text" name="representative" maxlength="100" required=""
+                       id="id_representative" value="{{ object.representative }}">
+            </p>
+            <p>
+                <label class="form-label" for="id_phone_number">Контактный номер:</label>
+                <input class="form-control" type="text" name="phone_number" maxlength="100" required=""
+                       id="id_phone_number" value="{{ object.phone_number }}">
+            </p>
+
+
+            {% if object %}
+                <input formaction="{% url 'assignments:add-payload' object.id %}" type="submit"
+                       class="btn btn-primary" value="Добавить груз">
+            {% else %}
+                <input formaction="{% url 'assignments:create-assignment-redirect' %}" type="submit"
+                       class="btn btn-primary" value="Добавить груз">
+            {% endif %}
+            <a href="{% url 'assignments:list' %}" class="btn btn-primary">Назад</a>
+            {% if object %}
+                <a href="{% url 'counterparties:delete' object.id %}" class="btn"
+                   style="background: #dc3545 !important; color: white">Удалить</a>
+            {% endif %}
+        </form>
+        <div style="overflow-y: auto">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Товар</th>
+                    <th scope="col">Количество</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for payload in payloads %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ payload.name }}</td>
+                        <td>{{ payload.count }}</td>
+                        <td><a href="{% url 'assignments:edit-payload' object.id payload.id %}" class="link-info"
+                               style="color: #0a58ca">Детали</a></td>
+                        <td><a href="{% url 'assignments:delete-payload' object.id payload.id %}" class="link-danger"
+                               style="color: #dc3545">Удалить</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
