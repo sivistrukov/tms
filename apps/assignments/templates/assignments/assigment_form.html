@@ -19,29 +19,17 @@
 
         <p>
             <label class="form-label" for="id_customers">Заказчик:</label>
-            <select class="form-select" name="customers" id="id_customers">
-                {% for customer in customers %}
-                    <option value="{{ customer.organization_name }}"
-                            {% if object.customers == customer.organization_name %}
-                            selected="" {% endif %}>{{ customer.organization_name }}</option>
-                {% endfor %}
-            </select>
+            {{ form.customers }}
         </p>
         {% if object %}
             <p>
                 <label class="form-label" for="id_status">Статус:</label>
-                <select class="form-select" name="status" id="id_status">
-                    {% for status in STATUSES %}
-                        <option value="{{ status.value }}" {% if object.status == status.value %}
-                                selected="" {% endif %}>{{ status.value }}</option>
-                    {% endfor %}
-                </select>
+                {{ form.status }}
             </p>
         {% endif %}
         <p>
             <label class="form-label" for="id_cost">Стоимость перевозки:</label>
-            <input class="form-control" type="number" name="cost" value="{{ object.cost }}" step="0.01" required=""
-                   id="id_cost">
+            {{ form.cost }}
         </p>
         <p>
             <label class="form-label" for="id_representative">Представитель:</label>

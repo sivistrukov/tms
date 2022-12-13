@@ -18,6 +18,9 @@ class AssignmentCreateView(LoginRequiredMixin, CreateView):
     model = models.Assignment
     form_class = forms.AssigmentForm
     success_url = reverse_lazy('assignments:list')
+    extra_context = {
+        'customers': counterparties_models.Counterparty.objects.all()
+    }
 
 
 class AssignmentUpdateView(LoginRequiredMixin, UpdateView):
