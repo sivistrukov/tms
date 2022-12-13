@@ -48,7 +48,7 @@
                        id="id_phone_number" value="{{ object.phone_number }}">
             </p>
 
-
+            <input type="submit" class="btn btn-primary" value="Сохранить">
             {% if object %}
                 <input formaction="{% url 'assignments:add-payload' object.id %}" type="submit"
                        class="btn btn-primary" value="Добавить груз">

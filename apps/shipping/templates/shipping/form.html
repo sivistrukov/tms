@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block header %}{% if object %}Рейс  #{{ object.id }}{% else %}Новый рейс{% endif %}{% endblock %}
+{% block content %}
+    <div style="overflow-y: scroll; height: 100%">
+        <form method="post">
+            {% csrf_token %}
+            <p>
+                <label class="form-label" for="id_assignment">Номер задания:</label>
+                {{ form.assignment }}
+            </p>
+            <p>
+                <label class="form-label" for="id_driver">Водитель:</label>
+                {{ form.driver }}
+            </p>
+            {% if object %}
+                <p>
+                    <label class="form-label" for="id_status">Статус:</label>
+                    {{ form.status }}
+                </p>
+            {% else %}
+                <p hidden="hidden">
+                    <label class="form-label" for="id_status">Статус:</label>
+                    {{ form.status }}
+                </p>
+
+            {% endif %}
+
+            {% if object %}
+                <div style="overflow-y: auto">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Товар</th>
+                            <th scope="col">Количество</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for payload in payloads %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ payload.name }}</td>
+                                <td>{{ payload.count }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+
+            <input type="submit" class="btn btn-primary" value="Сохранить">
+            <a href="{% url 'shipping:list' %}" class="btn btn-primary">Назад</a>
+            {% if object %}
+                <a href="{% url 'shipping:delete-shipping' object.id %}" class="btn"
+                   style="background: #dc3545 !important; color: white">Удалить</a>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

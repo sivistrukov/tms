@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block header %}Рейс #{{ object.id }}{% endblock %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <p>Вы уверены, что хотите удалить рейс #{{ object.id }}?</p>
+        <input type="submit" class="btn" style="background: #dc3545 !important; color: white" value="Удалить">
+        <a href="{% url 'shipping:list' %}" class="btn btn-primary">Назад</a>
+    </form>
+{% endblock %}

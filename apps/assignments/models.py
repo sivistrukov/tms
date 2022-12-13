@@ -19,6 +19,9 @@ class Assignment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return 'Задание на перевозку #' + str(self.id)
+
 
 class Payload(models.Model):
     name = models.CharField(max_length=150)

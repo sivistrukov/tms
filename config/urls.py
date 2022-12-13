@@ -10,4 +10,6 @@ urlpatterns = [
                                     namespace='counterparties')),
     path('assignments/', include('apps.assignments.urls',
                                  namespace='assignments')),
+    path('shippings/', include('apps.shipping.urls',
+                               namespace='shipping')),
 ]
