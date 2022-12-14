@@ -21,9 +21,9 @@ class ShippingForm(forms.ModelForm):
             }),
         }
 
-    def __int__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(ShippingForm, self).__init__(*args, **kwargs)
-        shippings = models.Shipping.objects.all()
         assignments = Assignment.objects.filter(status=Assignment.Status.PAID)
-        assignments = assignments.exclude(assignment__in=shippings)
+        assignment_ids = models.Shipping.objects.all().values_list('assignment_id', flat=True)
+        assignments = assignments.filter(id__in=assignment_ids)
         self.fields['assignment'] = forms.ModelChoiceField(queryset=assignments)
