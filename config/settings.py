@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'apps.counterparties.apps.CounterpartiesConfig',
     'apps.assignments.apps.AssignmentsConfig',
     'apps.shipping.apps.ShippingConfig',
+    'apps.drivers.apps.DriversConfig',
 ]
 
 MIDDLEWARE = [
