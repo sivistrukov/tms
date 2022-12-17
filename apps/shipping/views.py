@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, \
     UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from decimal import Decimal
 
 from . import models, forms
 
@@ -37,5 +38,13 @@ class ShippingDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('shipping:list')
 
 
-def service_complete_pdf(request, pk):
-    return render(request, 'shipping/pdfs/service_complete.html')
+def create_pdf_service_complete(request, pk):
+    shipping = get_object_or_404(models.Shipping, pk=pk)
+    context = {
+        'shipping': shipping,
+        'vat': "{:.2f}".format(shipping.assignment.cost * Decimal(1.20))
+    }
+
+    return render(request,
+                  'shipping/pdfs/service_complete.html',
+                  context)

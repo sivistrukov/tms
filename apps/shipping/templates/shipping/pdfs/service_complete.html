@@ -1,14 +1,37 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>СДЕК - система управления перевозками</title>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-<body>
-<h1>АКТ № от</h1>
+<body style="padding: 10px">
+<h1>АКТ № {{ shipping.id }} от {{ shipping.created|date }}</h1>
 <hr>
 <p>Исполнитель: ООО "СДЕК"</p>
-<p>Заказчик: xxxxx</p>
-
+<p>Заказчик: {{ shipping.assignment.customers.type }} {{ shipping.assignment.customers }}</p>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Наимеванование работ, услуг</th>
+        <th scope="col">Количество</th>
+        <th scope="col">Цена, руб.</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">1</th>
+        <td>Перевозка грузов</td>
+        <td>1</td>
+        <td>{{ shipping.assignment.cost }}</td>
+    </tr>
+    </tbody>
+</table>
+<p>Итого: {{ shipping.assignment.cost }} руб.</p>
+<p>С учетом НДС: {{ vat }} руб.</p>
 </body>
 </html>
