@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body style="padding: 10px">
-<h1>АКТ № {{ shipping.id }} от {{ shipping.created|date }}</h1>
+<h1>АКТ № {{ shipping.id }} от {{ shipping.updated|date }}</h1>
 <hr>
 <p>Исполнитель: ООО "СДЕК"</p>
-<p>Заказчик: {{ shipping.assignment.customers.type }} {{ shipping.assignment.customers }}</p>
+<p>Заказчик: {{ shipping.assignment.customers.type }} "{{ shipping.assignment.customers }}"</p>
 <table class="table table-bordered">
     <thead>
     <tr>
@@ -33,5 +33,9 @@
 </table>
 <p>Итого: {{ shipping.assignment.cost }} руб.</p>
 <p>С учетом НДС: {{ vat }} руб.</p>
+<div style="display: flex; justify-content: space-around">
+    <p>Подпись исполнителя: _________________</p>
+    <p>Подпись заказчика: _________________</p>
+</div>
 </body>
 </html>

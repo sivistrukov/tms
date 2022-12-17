@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, \
+from django.views.generic import DetailView, ListView, CreateView, \
     UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from decimal import Decimal
@@ -28,7 +28,7 @@ class ShippingUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['payloads'] = self.object.assignment.payload_set.filter(assignment=self.object.assignment)
+        context['payloads'] = self.object.assignment.payloads.filter(assignment=self.object.assignment)
         return context
 
 
@@ -42,9 +42,28 @@ def create_pdf_service_complete(request, pk):
     shipping = get_object_or_404(models.Shipping, pk=pk)
     context = {
         'shipping': shipping,
-        'vat': "{:.2f}".format(shipping.assignment.cost * Decimal(1.20))
+        'vat': '{:.2f}'.format(shipping.assignment.cost * Decimal(1.20))
     }
 
     return render(request,
                   'shipping/pdfs/service_complete.html',
                   context)
+
+
+class ServiceCompleteView(DetailView):
+    template_name = 'shipping/pdfs/service_complete.html'
+    model = models.Shipping
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['vat'] = '{:.2f}'.format(self.object.assignment.cost * Decimal(1.20))
+        return context
+
+
+class ContractView(DetailView):
+    template_name = 'shipping/pdfs/contract.html'
+    model = models.Shipping
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context

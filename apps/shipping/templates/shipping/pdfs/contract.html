@@ -1,10 +1,42 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>СДЕК - система управления перевозками</title>
 
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body style="padding: 10px">
+<h1>Договор-заявка на перевозку груза</h1>
+<h1>№ {{ shipping.id }} от {{ shipping.created|date }}</h1>
+<hr>
+<p>Перевозчик: ООО "СДЕК"</p>
+<p>Адрес загрузки: {{ object.assignment.loading_address }}</p>
+<p>Адрес разгрузки: {{ object.assignment.unloading_address }}</p>
+<p>Стоимость перевозки: {{ object.assignment.cost }} руб.</p>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Товар</th>
+        <th scope="col">Количество</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for payload in object.assignment.payloads.all %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ payload.name }}</td>
+            <td>{{ payload.count }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div style="display: flex; justify-content: space-around">
+    <p>Подпись исполнителя: _________________</p>
+    <p>Подпись заказчика: _________________</p>
+</div>
 </body>
 </html>

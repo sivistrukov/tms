@@ -55,9 +55,12 @@
             <input type="submit" class="btn btn-primary" value="Сохранить">
             <a href="{% url 'shipping:list' %}" class="btn btn-primary">Назад</a>
             {% if object %}
-                <a href="{% url 'shipping:service-complete-pdf' object.id %}" class="btn btn-primary">Сформировать акт
-                    об оказанных
-                    услугах</a>
+                <a href="{% url 'shipping:service-complete-pdf' object.id %}" class="btn btn-primary">
+                    Сформировать акт об оказанных услугах
+                </a>
+                <a href="{% url 'shipping:contract' object.id %}" class="btn btn-primary">
+                    Сформировать договор-заявку на перевозку
+                </a>
                 <a href="{% url 'shipping:delete-shipping' object.id %}" class="btn"
                    style="background: #dc3545 !important; color: white">Удалить</a>
             {% endif %}

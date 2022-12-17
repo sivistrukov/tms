@@ -26,4 +26,5 @@ class Assignment(models.Model):
 class Payload(models.Model):
     name = models.CharField(max_length=150)
     count = models.IntegerField()
-    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
+    assignment = models.ForeignKey(Assignment, related_name='payloads',
+                                   on_delete=models.CASCADE)
