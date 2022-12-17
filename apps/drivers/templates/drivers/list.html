@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block header %}Водители{% endblock %}
+{% block content %}
+    <div class="action-menu mt-">
+        <a href="{% url 'drivers:create-driver' %}" class="btn btn-primary">Добавить контрагента</a>
+    </div>
+    <hr>
+    <div class="table-wrapper">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Отчество</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for obj in object_list %}
+                <tr>
+                    <th scope="row">{{ obj.id }}</th>
+                    <td>{{ obj.surname }}</td>
+                    <td>{{ obj.name }}</td>
+                    <td>{{ obj.patronymic }}</td>
+                    <td><a href="{% url 'drivers:update-driver' obj.id %}" class="link-info"
+                           style="color: #0a58ca">Детали</a></td>
+                    <td><a href="{% url 'drivers:delete-driver' obj.id %}" class="link-danger"
+                           style="color: #dc3545">Удалить</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

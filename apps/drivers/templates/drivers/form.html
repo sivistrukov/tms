@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block header %}{% if object %}Водитель  #{{ object.id }}{% else %}Новый водитель{% endif %}{% endblock %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label class="form-label" for="id_surname">Фамилия:</label>
+            {{ form.surname }}
+        </p>
+        <p>
+            <label class="form-label">Имя:</label>
+            {{ form.name }}
+        </p>
+        <p>
+            <label class="form-label">Отчество:</label>
+            {{ form.patronymic }}
+        </p>
+        <input type="submit" class="btn btn-primary" value="Сохранить">
+        <a href="{% url 'drivers:list' %}" class="btn btn-primary">Назад</a>
+        {% if object %}
+            <a href="{% url 'drivers:delete-driver' object.id %}" class="btn"
+               style="background: #dc3545 !important; color: white">Удалить</a>
+        {% endif %}
+    </form>
+{% endblock %}

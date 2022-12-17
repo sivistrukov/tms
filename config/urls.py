@@ -12,4 +12,6 @@ urlpatterns = [
                                  namespace='assignments')),
     path('shippings/', include('apps.shipping.urls',
                                namespace='shipping')),
+    path('drivers/', include('apps.drivers.urls',
+                             namespace='drivers')),
 ]
