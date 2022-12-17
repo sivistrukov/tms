@@ -1,10 +1,10 @@
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, \
     UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from . import models
-from . import forms
+from . import models, forms
 
 
 class ShippingsListView(LoginRequiredMixin, ListView):
@@ -22,7 +22,7 @@ class ShippingCreateView(LoginRequiredMixin, CreateView):
 class ShippingUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'shipping/form.html'
     model = models.Shipping
-    form_class = forms.ShippingForm
+    form_class = forms.UpdateShippingForm
     success_url = reverse_lazy('shipping:list')
 
     def get_context_data(self, **kwargs):
@@ -35,3 +35,7 @@ class ShippingDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'shipping/delete.html'
     model = models.Shipping
     success_url = reverse_lazy('shipping:list')
+
+
+def service_complete_pdf(request, pk):
+    return render(request, 'shipping/pdfs/service_complete.html')

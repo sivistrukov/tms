@@ -4,10 +4,14 @@
     <div style="overflow-y: scroll; height: 100%">
         <form method="post">
             {% csrf_token %}
-            <p>
-                <label class="form-label" for="id_assignment">Номер задания:</label>
-                {{ form.assignment }}
-            </p>
+            {% if object %}
+                <p>Номер задания: {{ object.assignment_id }}</p>
+            {% else %}
+                <p>
+                    <label class="form-label" for="id_assignment">Номер задания:</label>
+                    {{ form.assignment }}
+                </p>
+            {% endif %}
             <p>
                 <label class="form-label" for="id_driver">Водитель:</label>
                 {{ form.driver }}
@@ -51,6 +55,9 @@
             <input type="submit" class="btn btn-primary" value="Сохранить">
             <a href="{% url 'shipping:list' %}" class="btn btn-primary">Назад</a>
             {% if object %}
+                <a href="{% url 'shipping:service-complete-pdf' object.id %}" class="btn btn-primary">Сформировать акт
+                    об оказанных
+                    услугах</a>
                 <a href="{% url 'shipping:delete-shipping' object.id %}" class="btn"
                    style="background: #dc3545 !important; color: white">Удалить</a>
             {% endif %}
