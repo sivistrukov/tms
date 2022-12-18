@@ -19,7 +19,7 @@
     <div class="chat-input">
         <form action="{% url 'chat:chat-room' driver.id %}" method="post" style="display: flex">
             {% csrf_token %}
-            <input type="text" name="message" class="form-control mx-1" required="">
+            <input autocomplete="off" type="text" name="message" class="form-control mx-1" required="">
             <input class="btn btn-primary mx-1" type="submit" value="Отправить">
         </form>
     </div>
