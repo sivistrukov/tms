@@ -58,7 +58,7 @@
             {% endif %}
             <a href="{% url 'assignments:list' %}" class="btn btn-primary">Назад</a>
             {% if object %}
-                <a href="{% url 'counterparties:delete' object.id %}" class="btn"
+                <a href="{% url 'assignments:delete-assignment' object.id %}" class="btn"
                    style="background: #dc3545 !important; color: white">Удалить</a>
             {% endif %}
         </form>

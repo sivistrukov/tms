@@ -45,7 +45,7 @@ class AssignmentUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['payloads'] = self.object.payload_set.filter(assignment=self.object)
+        context['payloads'] = self.object.payloads.filter(assignment=self.object)
         return context
 
 

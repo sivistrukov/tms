@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'apps.assignments.apps.AssignmentsConfig',
     'apps.shipping.apps.ShippingConfig',
     'apps.drivers.apps.DriversConfig',
+    'apps.chat.apps.ChatConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>СДЕК - система управления перевозками</title>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<div class="vh-100 d-flex" style="background-color: #ededed">
+    {% include 'includes/sidebar.html' %}
+    <div class="content-wrapper px-4 py-3">
+        <div class="header px-4 py-2">
+            <h2>{% block header %}Чат{% endblock %}</h2>
+        </div>
+        <div class="content-block my-3 p-4">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    <div class="chat-rooms px-2 py-3">
+        <div class="header-box text-center">
+            <h2>Водители</h2>
+        </div>
+        <hr>
+        <div style="overflow-y: auto; height: 85%">
+            {% for chat_room in chat_list %}
+                <a href="{% url 'chat:chat-room' chat_room.id %}"
+                   class="btn btn-outline-primary w-100 my-2">{{ chat_room }}</a>
+            {% endfor %}
+        </div>
+        <hr>
+    </div>
+</div>
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

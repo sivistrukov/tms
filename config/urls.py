@@ -14,4 +14,6 @@ urlpatterns = [
                                namespace='shipping')),
     path('drivers/', include('apps.drivers.urls',
                              namespace='drivers')),
+    path('chat/', include('apps.chat.urls',
+                          namespace='chat'))
 ]
